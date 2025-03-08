@@ -1,6 +1,8 @@
 package com.ujs.outline.controller;
 
 import com.ujs.outline.domain.ImageCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,7 @@ import java.util.Random;
  */
 @RestController
 public class ValidateCodeController {
+    private static final Logger logger = LoggerFactory.getLogger(ValidateCodeController.class);
 
     //定义存入session的key
     public static final String SESSION_KEY = "SESSION_IMAGE_CODE";
@@ -30,10 +33,21 @@ public class ValidateCodeController {
 
     @GetMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ServletWebRequest servletWebRequest = new ServletWebRequest(request);
-        ImageCode imageCode = createImageCode(servletWebRequest);
-        sessionStrategy.setAttribute(servletWebRequest,SESSION_KEY,imageCode);
-        ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
+        // 设置响应头
+        response.setHeader("Cache-Control", "no-store");
+        response.setContentType("image/jpeg");
+        try {
+            ServletWebRequest servletWebRequest = new ServletWebRequest(request);
+            ImageCode imageCode = createImageCode(servletWebRequest);
+            sessionStrategy.setAttribute(servletWebRequest,SESSION_KEY,imageCode);
+            ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
+            logger.info("成功生成验证码");
+        } catch (Exception e) {
+            logger.error("生成验证码失败", e);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+
+
     }
 
     private ImageCode createImageCode(ServletWebRequest servletWebRequest) {
@@ -86,7 +100,7 @@ public class ValidateCodeController {
         }
         int r = fc + random.nextInt((bc - fc));
         int g = fc + random.nextInt((bc - fc));
-        int b = fc = random.nextInt((bc - fc));
+        int b = fc + random.nextInt((bc - fc));
         return new Color(r, g, b);
     }
 }

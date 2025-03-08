@@ -45,3 +45,9 @@ server:
 
 mybatis-plus:
   type-enums-package: com.ujs.outline.domain.enums
+
+logging:
+  level:
+    root: info
+    com.ujs.outline: debug
+    org.springframework.web: warn

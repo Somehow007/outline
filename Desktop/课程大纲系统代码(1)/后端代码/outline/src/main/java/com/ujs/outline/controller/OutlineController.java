@@ -64,6 +64,7 @@ public class OutlineController {
                                    @RequestParam(value = "college_id", defaultValue = "") String collegeId,
                                    @RequestParam(value = "outline_state", defaultValue = "") String outlineState,
                                     @RequestParam(value = "year", defaultValue = "") String year) {
+
         QueryWrapper<Outline> wrapper = new QueryWrapper<>();
         if (outlineId != -1) {
             wrapper.eq("outline_id", outlineId);

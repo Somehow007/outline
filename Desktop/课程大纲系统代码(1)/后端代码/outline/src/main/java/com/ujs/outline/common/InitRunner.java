@@ -34,8 +34,8 @@ public class InitRunner implements CommandLineRunner {
         queryWrapper.eq("college_id", "12");
         queryWrapper.eq("user_state", "20");
         if (userService.getOne(queryWrapper) == null) {
-//            addMainAdmin();
-            addAllUser();
+            addMainAdmin();
+//            addAllUser();
         }
     }
 

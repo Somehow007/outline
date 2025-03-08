@@ -50,6 +50,8 @@ public class CourseController {
                                    @RequestParam(value = "term", defaultValue = "-1") Integer term,
                                    @RequestParam(value = "course_state", defaultValue = "") String courseState,
                                    @RequestParam(value = "year", defaultValue = "") String year) {
+        System.out.println("请求参数：page=" + page + ", size=" + size + ", course_id=" + courseId + ", code=" + code + ", name=" + name + ", course_type=" + courseType + ", course_category=" + courseCategory + ", major_id=" + majorId + ", college_id=" + collegeId + ", term=" + term + ", course_state=" + courseState + ", year=" + year);
+
         QueryWrapper<Course> wrapper = new QueryWrapper<>();
         if (courseId != -1) {
             wrapper.eq("course_id",courseId);

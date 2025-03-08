@@ -19,13 +19,19 @@ public class MybatisPlusConfig {
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        // 核心拦截器，实现分页功能
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
     }
 
+    /**
+     * 禁用MyBatis旧版执行器，避免与新分页插件冲突
+     * @return
+     */
     @Bean
     public ConfigurationCustomizer configurationCustomizer() {
+        // 关闭基于Executor的旧分页方式
         return configuration -> configuration.setUseDeprecatedExecutor(false);
     }
 }
