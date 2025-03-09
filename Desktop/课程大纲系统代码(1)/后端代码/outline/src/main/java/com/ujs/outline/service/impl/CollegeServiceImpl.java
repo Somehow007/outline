@@ -1,5 +1,6 @@
 package com.ujs.outline.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -12,7 +13,9 @@ import com.ujs.outline.service.OutlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CollegeServiceImpl extends ServiceImpl<CollegeMapper, College> implements CollegeService {
@@ -74,4 +77,17 @@ public class CollegeServiceImpl extends ServiceImpl<CollegeMapper, College> impl
         resultData.setSize(collegePage.getSize());
         return resultData;
     }
+
+    /**
+     * 根据学院id获取学院名称
+     */
+    @Override
+    public List<College> getCollegeNameAndId() {
+        System.out.println("basemapper实例" + this.getBaseMapper());
+
+        QueryWrapper<College> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("college_id", "college_name");
+        return getBaseMapper().selectList(queryWrapper);
+    }
+
 }

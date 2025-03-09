@@ -9,7 +9,8 @@ import './components/common/directives';
 import 'babel-polyfill';
 
 Vue.config.productionTip = false;
-Vue.prototype.$baseUrl='http://202.195.168.13:8888';
+// Vue.prototype.$baseUrl='http://202.195.168.13:8888';
+Vue.prototype.$baseUrl='http://localhost:80';
 Vue.prototype.$errorMsg = '';
 
 Vue.use(ElementUI, {

@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/excel/export/users").permitAll()
                 .antMatchers("/outline/download").permitAll()
                 .antMatchers("/outline/").permitAll()
                 .antMatchers("/outline/searchForOldOutline").permitAll()
@@ -82,7 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/").hasAuthority("user")
                 .antMatchers("/user/user/**").hasAuthority("user")
                 .antMatchers("/user/mainAdmin/**").hasAuthority("mainAdmin")
-                .antMatchers("/excel/**").hasAuthority("mainAdmin")
+//                .antMatchers("/excel/**").hasAuthority("mainAdmin")
                 .anyRequest().authenticated()
                 .and()
                 .cors().and()//跨域

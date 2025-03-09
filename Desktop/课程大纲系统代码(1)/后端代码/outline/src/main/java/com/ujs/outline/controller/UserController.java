@@ -201,6 +201,7 @@ public class UserController {
         return userService.saveOrUpdate(user)?resultObj:ResultObj.UPDATE_ERROR;
     }
 
+
     public static String passRandom() {
         StringBuilder textString=new StringBuilder();
         String reference="QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm!@#$%^&*()";

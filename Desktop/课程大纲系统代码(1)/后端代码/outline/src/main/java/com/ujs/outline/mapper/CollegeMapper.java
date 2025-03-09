@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
  * Mapper接口
  * @author wjy
  */
+
 public interface CollegeMapper extends BaseMapper<College> {
     @Select("SELECT max(college_id) FROM college")
     String getMaxCollegeId();

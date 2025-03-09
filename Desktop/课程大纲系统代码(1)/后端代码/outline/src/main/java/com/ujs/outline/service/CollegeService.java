@@ -15,4 +15,5 @@ public interface CollegeService extends IService<College> {
     void modifyCourseNum(String collegeId,int num);
     void modifyRequireNum(String collegeId,int num);
     void modifyUploadNum(String collegeId,int num);
+    List<College> getCollegeNameAndId();
 }

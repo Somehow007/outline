@@ -92,6 +92,14 @@ export const setAllCourse =(formdata) => {
         contentType : false,
     });
 };
+// 导出user表为excel
+export const getUserToExcel = () => {
+    return request({
+        url: '/excel/export/users',
+        method: 'get',
+        responseType: 'blob'
+    })
+};
 //重新计数所有学院nums
 export const countCollegeNums =() => {
     return request({
