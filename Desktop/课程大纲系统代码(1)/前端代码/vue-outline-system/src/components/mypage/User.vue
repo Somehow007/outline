@@ -98,6 +98,7 @@
         </el-select>
         <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
         <el-button type="primary" icon="el-icon-lx-roundclose" @click="handleReset">重置</el-button>
+        <el-button type="primary" @click="handleUserToExcel">导出为Excel</el-button>
       </div>
 
       <div class="handle-box">
@@ -281,7 +282,9 @@ import {
   resetPasswordByRandomADMIN,
   resetPasswordByUserId,
   resetPasswordByUserIdADMIN,
-  updateCollege, updateUser
+  updateCollege,
+  updateUser,
+  getUserToExcel
 } from '../../api/index';
 import bus from "@/components/common/bus";
 
@@ -371,6 +374,21 @@ export default {
     handleSearch() {
       this.$set(this.query, 'page', 1);
       this.getData();
+    },
+    // 导出用户为Excel
+    handleUserToExcel() {
+      getUserToExcel().then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'users.xlsx');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }).catch(error => {
+        this.$message.error('导出失败');
+        console.error(error);
+      });
     },
     // 分页导航
     handlePageChange(val) {

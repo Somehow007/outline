@@ -24,14 +24,14 @@ import java.util.stream.Collectors;
 @Service
 public class ExportExcelServiceImpl implements ExportExcelService {
     private final JdbcTemplate jdbcTemplate;
-    private final CollegeService collegeService;
     private Map<String, String> collegeMap;
 
     @Autowired
     public ExportExcelServiceImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.collegeService = new CollegeServiceImpl();
     }
+    @Autowired
+    private CollegeService collegeService;
 
     private void init() {
         collegeMap = collegeService.getCollegeNameAndId()
